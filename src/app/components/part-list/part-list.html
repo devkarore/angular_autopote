@@ -2,6 +2,24 @@
 
   <div class="mb-4 title-card">
     <h1 class="h4 fw-medium mb-1">Catalogue de pièces</h1>
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-md-4">
+        <select class="form-select form-select-sm" (change)="onBrandChange($event)">
+          <option value="">Toutes les marques</option>
+          @for (brand of brands(); track brand.id) {
+            <option [value]="brand.id">{{ brand.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="col-12 col-md-4">
+        <select class="form-select form-select-sm" (change)="onCategoryChange($event)">
+          <option value="">Toutes les catégories</option>
+          @for (category of category(); track category.id) {
+            <option [value]="category.id">{{ category.name }}</option>
+          }
+        </select>
+      </div>
+    </div>
   </div>
 
   @if (isLoading()) {
@@ -14,7 +32,7 @@
 
   @if (!isLoading()) {
     <div class="row g-4 mb-4">
-      @for (part of parts; track part.id) {
+      @for (part of parts(); track part.id) {
         <div class="col-12 col-md-6 col-lg-4">
           <div class="card h-100 border">
             <div class="card-body">
@@ -53,6 +71,48 @@
           </div>
         </div>
       }
+    </div>
+  }
+  @if (!isLoading() && nbPages > 1) {
+    <div class="d-flex justify-content-between align-items-center border-top pt-3">
+      <span class="text-muted small">
+        Affichage de {{ (currentPage - 1) * itemsPerPage + 1 }}
+        à {{ lastItemIndex }}
+        sur {{ totalItems }} pièces
+      </span>
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <button class="page-link" (click)="goToPage(currentPage - 1)">Précédent</button>
+          </li>
+          <li class="page-item" [class.active]="currentPage === 1">
+            <button class="page-link" (click)="goToPage(1)">1</button>
+          </li>
+          @if (currentPage > 2) {
+            <li class="page-item disabled">
+              <span class="page-link">…</span>
+            </li>
+          } 
+          @if (currentPage >= 2 && currentPage < nbPages) {
+            <li class="page-item active">
+              <button class="page-link">{{ currentPage }}</button>
+            </li>
+          }
+          @if (currentPage < nbPages - 2) {
+            <li class="page-item disabled">
+              <span class="page-link">…</span>
+            </li>
+          }
+          @if (nbPages > 1) {
+            <li class="page-item" [class.active]="currentPage === nbPages">
+              <button class="page-link" (click)="goToPage(nbPages)">{{ nbPages }}</button>
+            </li>
+          }
+          <li class="page-item" [class.disabled]="currentPage === nbPages">
+            <button class="page-link" (click)="goToPage(currentPage + 1)">Suivant</button>
+          </li>
+        </ul>
+      </nav>
     </div>
   }
 </div>

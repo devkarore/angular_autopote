@@ -7,6 +7,7 @@ export interface Brand {
 export interface Category {
   id: number;
   name: string;
+  slug: string;
 }
 
 export interface Part {
@@ -25,5 +26,15 @@ export interface Part {
 
 export interface PartCollection {
   member: Part[];
+  totalItems: number;
+}
+
+export interface BrandCollection {
+  member: Brand[];
+  totalItems: number;
+}
+
+export interface CategoryCollection {
+  member: Category[];
   totalItems: number;
 }
