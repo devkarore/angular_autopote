@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <form [formGroup]="formulaire" (ngSubmit)="soumettre()">
+                <input type="text" class="form-control my-2" formControlName="name"
+                    placeholder="Nom de la catégorie"
+                    [class.is-invalid]="formulaire.get('name')?.invalid && formulaire.get('name')?.touched"
+                    required/>
+                @if (formulaire.get('name')?.hasError('required') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom est requis</div>
+                }
+                @if (formulaire.get('name')?.hasError('minlength') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom doit contenir au moins 2 caractères</div>
+                }
+                @if (formulaire.get('name')?.hasError('maxlength') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom doit contenir au max 100 caractères</div>
+                }
+                <textarea class="form-control my-2" formControlName="description" required placeholder="Description"
+                [class.is-invalid]="formulaire.get('description')?.invalid && formulaire.get('description')?.touched"></textarea>
+                @if (formulaire.get('description')?.hasError('required') && formulaire.get('description')?.touched) {
+                    <div class="text-danger small mt-1">La description est requis</div>
+                }
+                @if (formulaire.get('description')?.hasError('maxlength') && formulaire.get('description')?.touched) {
+                    <div class="text-danger small mt-1">La description doit contenir au max 500 caractères</div>
+                }
+                <button class="btn btn-primary" [disabled]="formulaire.invalid" type="submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+</div>

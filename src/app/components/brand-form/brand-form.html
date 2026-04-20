@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <form [formGroup]="formulaire" (ngSubmit)="soumettre()">
+
+
+                <input type="text" class="form-control my-2" formControlName="name"
+                    placeholder="Nom de la marque"
+                    [class.is-invalid]="formulaire.get('name')?.invalid && formulaire.get('name')?.touched"
+                    required/>
+                @if (formulaire.get('name')?.hasError('required') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom est requis</div>
+                }
+                @if (formulaire.get('name')?.hasError('minlength') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom doit contenir au moins 2 caractères</div>
+                }
+                @if (formulaire.get('name')?.hasError('maxlength') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom doit contenir au max 100 caractères</div>
+                }
+
+                <input type="text" class="form-control my-2" formControlName="country"
+                    placeholder="Pays de la marque"
+                    [class.is-invalid]="formulaire.get('country')?.invalid && formulaire.get('country')?.touched"
+                    required/>
+                @if (formulaire.get('country')?.hasError('required') && formulaire.get('country')?.touched) {
+                    <div class="text-danger small mt-1">Le pays est requis</div>
+                }
+                @if (formulaire.get('country')?.hasError('minlength') && formulaire.get('country')?.touched) {
+                    <div class="text-danger small mt-1">Le pays doit contenir au moins 2 caractères</div>
+                }
+                @if (formulaire.get('country')?.hasError('maxlength') && formulaire.get('country')?.touched) {
+                    <div class="text-danger small mt-1">Le pays doit contenir au max 100 caractères</div>
+                }
+
+
+                <button class="btn btn-primary" [disabled]="formulaire.invalid" type="submit">Envoyer</button>
+                
+            </form>
+        </div>
+    </div>
+</div>
