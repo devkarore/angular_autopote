@@ -46,4 +46,8 @@ export class ApiService {
   postBrand(formValues: FormData) {
     return this.http.post(`${this.apiUrl}/brands`, formValues);
   }
+
+  postPart(formValues: FormData) {
+    return this.http.post(`${this.apiUrl}/parts`, formValues);
+  }
 }

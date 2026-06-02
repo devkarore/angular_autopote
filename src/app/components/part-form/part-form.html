@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <form [formGroup]="formulaire" (ngSubmit)="soumettre()">
+                <input type="text" class="form-control my-2" formControlName="name"
+                    placeholder="Nom de la pièce"
+                    [class.is-invalid]="formulaire.get('name')?.invalid && formulaire.get('name')?.touched"
+                    required/>
+                @if (formulaire.get('name')?.hasError('required') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom est requis</div>
+                }
+                @if (formulaire.get('name')?.hasError('minlength') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom doit contenir au moins 2 caractères</div>
+                }
+                @if (formulaire.get('name')?.hasError('maxlength') && formulaire.get('name')?.touched) {
+                    <div class="text-danger small mt-1">Le nom doit contenir au max 100 caractères</div>
+                }
+
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <select name="brandId" formControlName="brandId" class="form-control">
+                            <option value="">Choisissez une marque</option>
+                            @for(brand of brands().member; track brand.id) {
+                                <option [value]="brand.id">{{ brand.name }}</option>
+                            }
+                        </select>
+                        @if (formulaire.get('brandId')?.hasError('required') && formulaire.get('brandId')?.touched) {
+                            <div class="text-danger small mt-1">La marque est requise</div>
+                        }
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <select name="categoryId" formControlName="categoryId" class="form-control">
+                            <option value="">Choisissez une catégorie</option>
+                            @for(categorie of categories().member; track categorie.id) {
+                                <option [value]="categorie.id">{{ categorie.name }}</option>
+                            }
+                        </select>
+                        @if (formulaire.get('categoryId')?.hasError('required') && formulaire.get('categoryId')?.touched) {
+                            <div class="text-danger small mt-1">La catégorie est requise</div>
+                        }
+                    </div>
+                </div>
+
+                <textarea class="form-control my-2" formControlName="description" required placeholder="Description"
+                [class.is-invalid]="formulaire.get('description')?.invalid && formulaire.get('description')?.touched"></textarea>
+                @if (formulaire.get('description')?.hasError('required') && formulaire.get('description')?.touched) {
+                    <div class="text-danger small mt-1">La description est requise</div>
+                }
+                @if (formulaire.get('description')?.hasError('maxlength') && formulaire.get('description')?.touched) {
+                    <div class="text-danger small mt-1">La description doit contenir au max 500 caractères</div>
+                }
+                <button class="btn btn-primary" [disabled]="formulaire.invalid" type="submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+</div>

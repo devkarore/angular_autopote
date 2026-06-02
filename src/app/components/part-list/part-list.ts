@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api-service';
 import { Part, Brand, Category } from '../../interfaces/part.interface';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-part-list',
   standalone: true,
